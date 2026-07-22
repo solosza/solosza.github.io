@@ -411,6 +411,48 @@
       font-style: italic;
     }
 
+    .decisions-table-wrap {
+      overflow-x: auto;
+      margin: 2rem 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .decisions-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+    }
+
+    .decisions-table th,
+    .decisions-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      vertical-align: top;
+    }
+
+    .decisions-table th {
+      background: var(--surface);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .decisions-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .decisions-table td:first-child {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .decisions-table td:not(:first-child) {
+      color: var(--text-secondary);
+    }
+
     footer {
       padding: 2rem 0;
       text-align: center;
@@ -436,6 +478,7 @@
       <li><a href="#evidence">Evidence</a></li>
       <li><a href="#case-study">Case Study</a></li>
       <li><a href="#selected-work">Selected Work</a></li>
+      <li><a href="#decisions">Decisions</a></li>
       <li><a href="#resume">Resume</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -826,6 +869,51 @@ Max iterations: 8</span>
           <span>Claude Code</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="decisions">
+    <h2>Engineering Decisions and Trade-offs</h2>
+
+    <p class="isagawa-definition">Each of these decisions trades a benefit for a concrete operational cost. None is claimed to be universally optimal — each is a fit for the problem the runtime is solving.</p>
+
+    <div class="decisions-table-wrap">
+      <table class="decisions-table">
+        <thead>
+          <tr>
+            <th>Decision</th>
+            <th>Reason</th>
+            <th>Operational Trade-off / Invariant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Persist workflow state outside chat</td>
+            <td>Supports inspection, recovery, continuity</td>
+            <td>Adds a persistence layer to maintain; state must survive session boundaries</td>
+          </tr>
+          <tr>
+            <td>Bound work into explicit units</td>
+            <td>Reduces ambiguity, improves validation</td>
+            <td>Requires upfront task decomposition before execution</td>
+          </tr>
+          <tr>
+            <td>Separate mechanical and semantic checks</td>
+            <td>Different invariants need different verification methods</td>
+            <td>Semantic checks remain model-assisted and probabilistic; mechanical checks are deterministic</td>
+          </tr>
+          <tr>
+            <td>Use controlled integration</td>
+            <td>Keeps generated changes reviewable before merge</td>
+            <td>Adds a review step; trades some autonomy for auditability</td>
+          </tr>
+          <tr>
+            <td>Adapt by domain</td>
+            <td>Reusable runtime without hardcoding one vertical</td>
+            <td>Domain specs must be authored per vertical; runtime stays constant</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
