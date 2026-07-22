@@ -466,6 +466,17 @@
       nav a { font-size: 0.8rem; }
       section { padding: 2.5rem 0; }
     }
+
+    @media print {
+      nav { position: static; }
+      .badge-row span { background: #fff; color: #000; border: 1px solid #999; }
+      .dx-teaser pre, .cli-trace pre { background: #fff; color: #000; border: 1px solid #999; }
+      .cli-trace pre .trace-header, .cli-trace pre .trace-state, .cli-trace pre .trace-task,
+      .cli-trace pre .trace-model, .cli-trace pre .trace-done, .cli-trace pre .trace-banner { color: #000; }
+      .arch-key-principle, .pending-metric { background: #fff; border: 1px solid #999; }
+      section { border-bottom: 1px solid #ccc; page-break-inside: avoid; }
+      a { color: #000; text-decoration: underline; }
+    }
   </style>
 </head>
 <body>
