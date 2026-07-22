@@ -285,6 +285,7 @@
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#isagawa">Isagawa</a></li>
+      <li><a href="#thesis">Thesis</a></li>
       <li><a href="#evidence">Evidence</a></li>
       <li><a href="#case-study">Case Study</a></li>
       <li><a href="#selected-work">Selected Work</a></li>
@@ -381,6 +382,31 @@ spec:
       type: deterministic</code></pre>
       <p class="snippet-caption">Shows how developer intent is externalized into a declarative spec before entering the governed execution runtime.</p>
     </div>
+  </section>
+
+  <section id="thesis">
+    <h2>The Problem and Design Thesis</h2>
+
+    <p class="isagawa-definition">Coding agents can lose procedural context mid-task, reinterpret instructions as conversation history grows, and report completion without independent evidence that the work is correct.</p>
+
+    <div class="capabilities-grid">
+      <div class="capability-item">
+        <strong>Advisory prompts</strong>
+        <span>Instructions provided as context, not as enforceable constraints — the model can drift from them without any mechanism noticing</span>
+      </div>
+      <div class="capability-item">
+        <strong>Fragile conversational state</strong>
+        <span>Prior decisions, corrections, and constraints fade as context windows compress or conversations restart</span>
+      </div>
+      <div class="capability-item">
+        <strong>Self-reported completion</strong>
+        <span>The same model that performed the work is the only judge of whether it succeeded — no independent verification layer</span>
+      </div>
+    </div>
+
+    <p class="ownership-statement">Specifications alone are not enough. A spec can declare what should happen, but without a runtime that enforces bounded execution, tracks state outside the model's context, and validates outputs independently, the gap between intent and result remains open.</p>
+
+    <p class="ownership-statement">My approach: treat agent reliability as a software runtime and verification problem — not only a prompting problem.</p>
   </section>
 
   <section id="evidence">
