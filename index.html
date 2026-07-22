@@ -265,6 +265,55 @@
       font-style: italic;
     }
 
+    .arch-flow-diagram {
+      margin: 2rem 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .arch-flow-diagram svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .principle-item {
+      padding: 0.75rem 1rem;
+      border-left: 3px solid #64748b;
+      background: var(--surface);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .principle-item strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .principle-item span {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .arch-key-principle {
+      font-size: 1.05rem;
+      color: var(--text);
+      font-weight: 500;
+      margin-top: 1.75rem;
+      padding: 1rem 1.25rem;
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      max-width: 720px;
+    }
+
     footer {
       padding: 2rem 0;
       text-align: center;
@@ -286,6 +335,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#isagawa">Isagawa</a></li>
       <li><a href="#thesis">Thesis</a></li>
+      <li><a href="#architecture">Architecture</a></li>
       <li><a href="#evidence">Evidence</a></li>
       <li><a href="#case-study">Case Study</a></li>
       <li><a href="#selected-work">Selected Work</a></li>
@@ -407,6 +457,76 @@ spec:
     <p class="ownership-statement">Specifications alone are not enough. A spec can declare what should happen, but without a runtime that enforces bounded execution, tracks state outside the model's context, and validates outputs independently, the gap between intent and result remains open.</p>
 
     <p class="ownership-statement">My approach: treat agent reliability as a software runtime and verification problem — not only a prompting problem.</p>
+  </section>
+
+  <section id="architecture">
+    <h2>High-Level Architecture</h2>
+
+    <p class="isagawa-definition">Isagawa organizes AI-assisted development around four concepts that separate intent from execution and require independent evidence before work is considered complete.</p>
+
+    <div class="capabilities-grid">
+      <div class="capability-item">
+        <strong>Structured Intent</strong>
+        <span>Developer goals are captured in declarative specifications before any execution begins — the model works from an externalized plan, not improvised conversation</span>
+      </div>
+      <div class="capability-item">
+        <strong>Domain-Aware Workflow</strong>
+        <span>Execution adapts to the target domain's conventions, interfaces, and constraints without rewriting the underlying runtime</span>
+      </div>
+      <div class="capability-item">
+        <strong>Governed Execution</strong>
+        <span>Work proceeds in bounded units with explicit gates — progress is checkpointed outside the model's context so it survives session boundaries</span>
+      </div>
+      <div class="capability-item">
+        <strong>Independent Validation and Review</strong>
+        <span>Outputs are verified against declared invariants by mechanisms separate from the model that produced them — completion requires evidence, not self-report</span>
+      </div>
+    </div>
+
+    <div class="arch-flow-diagram">
+      <svg viewBox="0 0 820 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conceptual flow: Intent to Structured Specification to Domain-Aware Execution to Validation Evidence to Reviewable Artifact">
+        <defs>
+          <marker id="arch-arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,3 L0,6" fill="#94a3b8"/>
+          </marker>
+        </defs>
+        <rect x="0" y="15" width="100" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="50" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Intent</text>
+        <line x1="105" y1="35" x2="145" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
+        <rect x="150" y="15" width="140" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="220" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Structured Spec</text>
+        <line x1="295" y1="35" x2="335" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
+        <rect x="340" y="15" width="145" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="412" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Domain Execution</text>
+        <line x1="490" y1="35" x2="530" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
+        <rect x="535" y="15" width="130" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="600" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Validation</text>
+        <line x1="670" y1="35" x2="710" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
+        <rect x="715" y="15" width="100" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="765" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Artifact</text>
+      </svg>
+    </div>
+
+    <div class="principles-grid">
+      <div class="principle-item">
+        <strong>Externalized State</strong>
+        <span>Workflow state is persisted outside the model's context window, supporting inspection, recovery, and continuity across sessions</span>
+      </div>
+      <div class="principle-item">
+        <strong>Bounded Work</strong>
+        <span>Execution is divided into explicit units with defined entry and exit criteria, reducing ambiguity and enabling incremental validation</span>
+      </div>
+      <div class="principle-item">
+        <strong>Tool-Aware Controls</strong>
+        <span>The runtime uses tool-level instrumentation to enforce workflow rules — controls operate alongside the model, not as advisory context within it</span>
+      </div>
+      <div class="principle-item">
+        <strong>Explicit Gates</strong>
+        <span>Progression between workflow stages requires passing defined checks — the system does not advance on self-reported completion alone</span>
+      </div>
+    </div>
+
+    <p class="arch-key-principle">Key principle: the model does not serve as the only source of state or the only judge of completion.</p>
   </section>
 
   <section id="evidence">
