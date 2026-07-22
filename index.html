@@ -787,7 +787,46 @@ Max iterations: 8</span>
 
   <section id="selected-work">
     <h2>Selected Work</h2>
-    <p class="section-placeholder">Content for this section will be added in a future update.</p>
+
+    <p class="isagawa-definition">Real applications built across agent infrastructure, evaluation systems, and compliance automation.</p>
+
+    <div class="evidence-grid">
+      <div class="evidence-card">
+        <h3>AI Evaluation Platform</h3>
+        <p class="mechanism">Built an evaluation framework that separates the model doing the work from the verifier evaluating it. Evaluation proceeds through layers: structural validation (does the output parse, imports resolve), behavioral tests against mocked targets, then live tests against real applications. Each layer enforces independent verification before progression.</p>
+        <p class="why-it-matters">Why it matters: AI-generated code needs evaluation outside the model's own reasoning. Independent verification catches gaps that self-assessment misses and provides defensible evidence of quality before merging.</p>
+        <div class="badge-row" style="margin-top: 0.75rem;">
+          <span>Python</span>
+          <span>Claude</span>
+          <span>pytest</span>
+          <span>deepeval</span>
+        </div>
+      </div>
+
+      <div class="evidence-card">
+        <h3>Compliance and Attestation Pipeline</h3>
+        <p class="mechanism">Designed and implemented a verifiable artifact attestation system using Sigstore and Rekor, enabling tamper-proof provenance tracking for software deliverables. The pipeline captures build context, attestations, and verification evidence as immutable, publicly auditable records in the transparency log.</p>
+        <p class="why-it-matters">Why it matters: compliance workflows require evidence trails that survive audits and legal review. Artifact provenance through Sigstore creates cryptographic proof of what was built, by whom, and when — without relying on a single authority.</p>
+        <div class="badge-row" style="margin-top: 0.75rem;">
+          <span>Python</span>
+          <span>Sigstore</span>
+          <span>Rekor</span>
+          <span>OpenSSL</span>
+        </div>
+      </div>
+
+      <div class="evidence-card">
+        <h3>Isagawa Kernel — Domain-Driven Agent Runtime</h3>
+        <p class="mechanism">Designed and built the core runtime that bounds agent work into explicit units, persists state outside the model's context, enforces validation gates between stages, and applies domain-specific rules through pluggable enforcement hooks. The kernel separates intent (structured specifications) from execution (domain-aware workflows) and validates outputs independently before marking tasks complete.</p>
+        <p class="why-it-matters">Why it matters: agent workflows drift without externalized state and independent verification. The kernel treats agent reliability as a runtime and verification problem — not just a prompting one. It enables reproducible, governed workflows that survive context boundaries and session restarts.</p>
+        <div class="badge-row" style="margin-top: 0.75rem;">
+          <span>Python</span>
+          <span>State Management</span>
+          <span>Hook Enforcement</span>
+          <span>Claude Code</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="resume">
