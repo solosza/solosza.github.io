@@ -1,0 +1,55 @@
+============================================
+  Isagawa Kernel - One-Shot Task Runner
+  (with session resume)
+============================================
+Repo: <repo>
+Task folder: <repo>/tasks/qa-platform/
+Max iterations: 8
+
+=== Iteration 1/8 ===
+[STATE before]
+  completed: 0/6  |  anchored: true
+[TASK] Attempting: 001-build-page-object
+[MODEL] Selected: claude-sonnet-4-20250514 (task: 001-build-page-object)
+-> Task done. (1 completed this run)
+
+=== Iteration 2/8 ===
+[STATE before]
+  completed: 1/6  |  anchored: true
+[TASK] Attempting: 002-build-role-layer
+[MODEL] Selected: claude-sonnet-4-20250514 (task: 002-build-role-layer)
+-> Task done. (2 completed this run)
+
+=== Iteration 3/8 ===
+[STATE before]
+  completed: 2/6  |  anchored: true
+[TASK] Attempting: 003-build-task-layer
+[MODEL] Selected: claude-opus-4-20250515 (task: 003-build-task-layer)
+-> Task done. (3 completed this run)
+
+=== Iteration 4/8 ===
+[STATE before]
+  completed: 3/6  |  anchored: true
+[TASK] Attempting: 004-build-interface
+[MODEL] Selected: claude-opus-4-20250515 (task: 004-build-interface)
+-> Task done. (4 completed this run)
+
+=== Iteration 5/8 ===
+[STATE before]
+  completed: 4/6  |  anchored: true
+[TASK] Attempting: 005-test-structural
+[MODEL] Selected: claude-sonnet-4-20250514 (task: 005-test-structural)
+-> Task done. (5 completed this run)
+
+=== Iteration 6/8 ===
+[STATE before]
+  completed: 5/6  |  anchored: true
+[TASK] Attempting: 006-test-live-e2e
+[MODEL] Selected: claude-opus-4-20250515 (task: 006-test-live-e2e)
+-> Task done. (6 completed this run)
+
+============================================
+  ALL TASKS COMPLETE
+  Tasks completed this run: 6
+  Total iterations: 6
+============================================

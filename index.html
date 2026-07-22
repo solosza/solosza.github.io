@@ -314,6 +314,103 @@
       max-width: 720px;
     }
 
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .evidence-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .evidence-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .evidence-card .mechanism {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+
+    .evidence-card .why-it-matters {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .pending-metric {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #92400e;
+      background: #fef3c7;
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .evidence-card.trace-card {
+      grid-column: 1 / -1;
+    }
+
+    .cli-trace {
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .cli-trace-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      padding: 0.6rem 1rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cli-trace pre {
+      margin: 0;
+      padding: 1rem;
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      max-height: 360px;
+      overflow-y: auto;
+    }
+
+    .cli-trace pre .trace-header { color: #93c5fd; font-weight: 600; }
+    .cli-trace pre .trace-state { color: #94a3b8; }
+    .cli-trace pre .trace-task { color: #fbbf24; }
+    .cli-trace pre .trace-model { color: #a78bfa; }
+    .cli-trace pre .trace-done { color: #86efac; }
+    .cli-trace pre .trace-banner { color: #34d399; font-weight: 600; }
+
+    .cli-trace-caption {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      padding: 0.6rem 1rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
+
     footer {
       padding: 2rem 0;
       text-align: center;
@@ -531,7 +628,98 @@ spec:
 
   <section id="evidence">
     <h2>Evidence</h2>
-    <p class="section-placeholder">Content for this section will be added in a future update.</p>
+
+    <p class="isagawa-definition">The system runs and produces inspectable outcomes. Each card describes a mechanism, what it does, and why it matters.</p>
+
+    <div class="evidence-grid">
+      <div class="evidence-card trace-card">
+        <h3>Governed Workflow</h3>
+        <p class="mechanism">Execution proceeds in bounded work units. Each unit has an explicit entry condition, a defined action, and a completion gate. Progress is checkpointed outside the model's context window so it persists across session boundaries. A task runner iterates through the unit queue, selecting an appropriate model per task and advancing only when the gate passes.</p>
+        <p class="why-it-matters">Why it matters: bounded units prevent open-ended drift. If the model loses context or restarts, the workflow resumes from the last checkpoint — not from scratch.</p>
+        <p><span class="pending-metric">Pending verified figure: bounded units per run</span></p>
+
+        <div class="cli-trace">
+          <p class="cli-trace-label">Sanitized CLI trace from a real task runner execution</p>
+          <pre><code><span class="trace-header">============================================
+  Isagawa Kernel - One-Shot Task Runner
+  (with session resume)
+============================================</span>
+<span class="trace-state">Repo: &lt;repo&gt;
+Task folder: &lt;repo&gt;/tasks/qa-platform/
+Max iterations: 8</span>
+
+<span class="trace-header">=== Iteration 1/8 ===</span>
+<span class="trace-state">[STATE before]
+  completed: 0/6  |  anchored: true</span>
+<span class="trace-task">[TASK] Attempting: 001-build-page-object</span>
+<span class="trace-model">[MODEL] Selected: claude-sonnet-4-20250514 (task: 001-build-page-object)</span>
+<span class="trace-done">-> Task done. (1 completed this run)</span>
+
+<span class="trace-header">=== Iteration 2/8 ===</span>
+<span class="trace-state">[STATE before]
+  completed: 1/6  |  anchored: true</span>
+<span class="trace-task">[TASK] Attempting: 002-build-role-layer</span>
+<span class="trace-model">[MODEL] Selected: claude-sonnet-4-20250514 (task: 002-build-role-layer)</span>
+<span class="trace-done">-> Task done. (2 completed this run)</span>
+
+<span class="trace-header">=== Iteration 3/8 ===</span>
+<span class="trace-state">[STATE before]
+  completed: 2/6  |  anchored: true</span>
+<span class="trace-task">[TASK] Attempting: 003-build-task-layer</span>
+<span class="trace-model">[MODEL] Selected: claude-opus-4-20250515 (task: 003-build-task-layer)</span>
+<span class="trace-done">-> Task done. (3 completed this run)</span>
+
+<span class="trace-header">=== Iteration 4/8 ===</span>
+<span class="trace-state">[STATE before]
+  completed: 3/6  |  anchored: true</span>
+<span class="trace-task">[TASK] Attempting: 004-build-interface</span>
+<span class="trace-model">[MODEL] Selected: claude-opus-4-20250515 (task: 004-build-interface)</span>
+<span class="trace-done">-> Task done. (4 completed this run)</span>
+
+<span class="trace-header">=== Iteration 5/8 ===</span>
+<span class="trace-state">[STATE before]
+  completed: 4/6  |  anchored: true</span>
+<span class="trace-task">[TASK] Attempting: 005-test-structural</span>
+<span class="trace-model">[MODEL] Selected: claude-sonnet-4-20250514 (task: 005-test-structural)</span>
+<span class="trace-done">-> Task done. (5 completed this run)</span>
+
+<span class="trace-header">=== Iteration 6/8 ===</span>
+<span class="trace-state">[STATE before]
+  completed: 5/6  |  anchored: true</span>
+<span class="trace-task">[TASK] Attempting: 006-test-live-e2e</span>
+<span class="trace-model">[MODEL] Selected: claude-opus-4-20250515 (task: 006-test-live-e2e)</span>
+<span class="trace-done">-> Task done. (6 completed this run)</span>
+
+<span class="trace-banner">============================================
+  ALL TASKS COMPLETE
+  Tasks completed this run: 6
+  Total iterations: 6
+============================================</span></code></pre>
+          <p class="cli-trace-caption">Sanitized output from the task runner completing a QA platform build — paths and identifiers removed, execution structure preserved.</p>
+        </div>
+      </div>
+
+      <div class="evidence-card">
+        <h3>Independent Validation</h3>
+        <p class="mechanism">Each deliverable passes through gate checks defined separately from the code that produced it. Gates range from structural checks (does the file exist, does it parse, do imports resolve) to live behavioral tests (does the workflow run against a real application and produce the expected outcome). A failing gate blocks progression — the system does not advance on the model's self-report.</p>
+        <p class="why-it-matters">Why it matters: the model that wrote the code is not the sole judge of whether it works. Verification is independent of generation.</p>
+        <p><span class="pending-metric">Pending verified figure: gate pass/fail rate</span></p>
+      </div>
+
+      <div class="evidence-card">
+        <h3>Controlled Delivery</h3>
+        <p class="mechanism">Generated changes are isolated to feature branches. Each batch of work produces a reviewable diff before merging. Commit history tracks what was built, what was tested, and what was validated — the full chain from intent to artifact is inspectable after the fact.</p>
+        <p class="why-it-matters">Why it matters: AI-generated code enters the codebase through the same review pathway as human-written code. Nothing merges unexamined.</p>
+        <p><span class="pending-metric">Pending verified figure: branches and review cycles</span></p>
+      </div>
+
+      <div class="evidence-card">
+        <h3>Evaluation Routing</h3>
+        <p class="mechanism">The system selects model and verification strategy based on workload type. Build tasks that require architectural reasoning route to higher-capability models; structural tests route to faster, cheaper models. Invalid or malformed inputs are rejected before execution begins rather than failing mid-workflow.</p>
+        <p class="why-it-matters">Why it matters: not every task needs the same model or the same depth of verification. Routing reduces cost and latency without sacrificing quality where it matters most.</p>
+        <p><span class="pending-metric">Pending verified figure: routing distribution</span></p>
+      </div>
+    </div>
   </section>
 
   <section id="case-study">
