@@ -173,6 +173,98 @@
       padding: 2rem 0;
     }
 
+    .isagawa-definition {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 1.75rem;
+      max-width: 720px;
+    }
+
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .capability-item {
+      padding: 0.75rem 1rem;
+      border-left: 3px solid var(--accent);
+      background: var(--surface);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .capability-item strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .capability-item span {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .concept-diagram {
+      margin: 2rem 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .concept-diagram svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .ownership-statement {
+      font-size: 1rem;
+      color: var(--text);
+      margin: 1.75rem 0;
+      max-width: 720px;
+      line-height: 1.7;
+    }
+
+    .dx-teaser {
+      margin-top: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      max-width: 640px;
+    }
+
+    .snippet-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      padding: 0.75rem 1rem 0.5rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dx-teaser pre {
+      margin: 0;
+      padding: 1rem;
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .snippet-caption {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
+
     footer {
       padding: 2rem 0;
       text-align: center;
@@ -226,7 +318,69 @@
 
   <section id="isagawa">
     <h2>What I Built: Isagawa</h2>
-    <p class="section-placeholder">Content for this section will be added in a future update.</p>
+
+    <p class="isagawa-definition">Isagawa is an agentic spec-driven development environment. It turns high-level intent into structured development workflows, applies domain-aware controls during execution, and produces reviewable software artifacts with explicit validation evidence.</p>
+
+    <div class="capabilities-grid">
+      <div class="capability-item">
+        <strong>Specification</strong>
+        <span>Externalize intent into structured, declarative formats before execution begins</span>
+      </div>
+      <div class="capability-item">
+        <strong>Domain Adaptation</strong>
+        <span>Configure execution for different verticals without rewriting the runtime</span>
+      </div>
+      <div class="capability-item">
+        <strong>Governed Execution</strong>
+        <span>Enforce bounded work units with explicit gates throughout the workflow</span>
+      </div>
+      <div class="capability-item">
+        <strong>Validation</strong>
+        <span>Independent verification of outputs against declared invariants</span>
+      </div>
+      <div class="capability-item">
+        <strong>Review</strong>
+        <span>Structured review workflows for generated artifacts before delivery</span>
+      </div>
+      <div class="capability-item">
+        <strong>Workflow Tracking</strong>
+        <span>Persistent state and progress tracking across sessions</span>
+      </div>
+    </div>
+
+    <div class="concept-diagram">
+      <svg viewBox="0 0 680 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conceptual flow: Developer Intent to Governed Workflow to Validated Output">
+        <defs>
+          <marker id="flow-arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,3 L0,6" fill="#94a3b8"/>
+          </marker>
+        </defs>
+        <rect x="0" y="15" width="170" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="85" y="40" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Developer Intent</text>
+        <line x1="175" y1="35" x2="245" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#flow-arrow)"/>
+        <rect x="250" y="15" width="190" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="345" y="40" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Governed Workflow</text>
+        <line x1="445" y1="35" x2="495" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#flow-arrow)"/>
+        <rect x="500" y="15" width="175" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="587" y="40" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Validated Output</text>
+      </svg>
+    </div>
+
+    <p class="ownership-statement">I designed and implemented the system architecture, workflow runtime, evaluation mechanisms, and applied platforms.</p>
+
+    <div class="dx-teaser">
+      <p class="snippet-label">Representative example, not an internal file</p>
+      <pre><code># representative-workflow.sdd.yaml
+domain: qa-automation
+spec:
+  goal: "Validate REST and database state consistency across a checkout flow"
+  governance:
+    require_verification_gate: true
+  invariants:
+    - check: "order_status matches api_response_status"
+      type: deterministic</code></pre>
+      <p class="snippet-caption">Shows how developer intent is externalized into a declarative spec before entering the governed execution runtime.</p>
+    </div>
   </section>
 
   <section id="evidence">
