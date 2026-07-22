@@ -135,6 +135,32 @@
       color: var(--accent);
     }
 
+    .hero-ownership {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-row span {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
     .hiring-target {
       margin-top: 1.5rem;
       font-size: 0.95rem;
@@ -179,10 +205,19 @@
     <h1>Alain Ignacio</h1>
     <p class="hero-role">Agent Systems Engineer | AI Developer Tooling | Spec-Driven Development</p>
     <p class="hero-headline">I build governed infrastructure for AI-assisted software development.</p>
-    <p class="hero-subheadline">Creator of Isagawa, a proprietary agentic spec-driven development environment used to structure, govern, and validate domain-specific software workflows.</p>
+    <p class="hero-ownership">I built Isagawa, a proprietary agentic SDD environment used to structure, govern, and validate AI-assisted software workflows across multiple domains.</p>
+    <div class="badge-row">
+      <span>Python</span>
+      <span>Selenium</span>
+      <span>Playwright</span>
+      <span>pyodbc</span>
+      <span>pymssql</span>
+      <span>Claude Code</span>
+      <span>Docker</span>
+    </div>
     <div class="hero-links">
-      <a href="#resume" class="primary">Resume</a>
-      <a href="https://github.com/isagawa-co" class="secondary">GitHub</a>
+      <a href="assets/resume.pdf" class="primary">Resume</a>
+      <a href="https://github.com/solosza" class="secondary">GitHub</a>
       <a href="https://linkedin.com/in/alain-ignacio" class="secondary">LinkedIn</a>
       <a href="mailto:alain@isagawa.co" class="secondary">Email</a>
     </div>
