@@ -917,6 +917,33 @@ Max iterations: 8</span>
     </div>
   </section>
 
+  <section id="limitations">
+    <h2>Current Limitations</h2>
+
+    <p class="isagawa-definition">Isagawa is an early-stage proprietary implementation exercised extensively by its builder across multiple domains. The following categories represent active engineering areas and scope boundaries:</p>
+
+    <div class="capabilities-grid">
+      <div class="capability-item">
+        <strong>Executor Dependence</strong>
+        <span>Runtime requires Claude Code or compatible terminal session; no standalone server deployment yet.</span>
+      </div>
+      <div class="capability-item">
+        <strong>Incomplete External Benchmarking</strong>
+        <span>Evidence base is internal to the builder's workflow. External reproduction, third-party validation, and comparative benchmarking across agent frameworks are active areas.</span>
+      </div>
+      <div class="capability-item">
+        <strong>Model-Assisted Semantic Review</strong>
+        <span>Semantic gates use LLM-as-judge and probabilistic pattern matching. Mechanical validation is deterministic; semantic correctness remains model-assisted.</span>
+      </div>
+      <div class="capability-item">
+        <strong>Concurrency Hardening</strong>
+        <span>Multi-agent parallel execution and state isolation are under active development. Serial and single-threaded workflows are well-validated; concurrent patterns are production-ready but continue to be hardened under load.</span>
+      </div>
+    </div>
+
+    <p class="isagawa-definition"><strong>Current work:</strong> Broader executor support, distributed state isolation for multi-agent swarms, external validation frameworks, and production deployment patterns.</p>
+  </section>
+
   <section id="resume">
     <h2>Resume</h2>
     <p class="section-placeholder">Content for this section will be added in a future update.</p>
