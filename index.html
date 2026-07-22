@@ -723,8 +723,66 @@ Max iterations: 8</span>
   </section>
 
   <section id="case-study">
-    <h2>Case Study</h2>
-    <p class="section-placeholder">Content for this section will be added in a future update.</p>
+    <h2>Case Study: Multi-Interface QA Platform</h2>
+
+    <p class="isagawa-definition">A cross-interface QA automation platform built and validated through Isagawa, covering browser, REST API, database, and SOAP service testing under a unified architectural model.</p>
+
+    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Problem</h3>
+    <p class="ownership-statement" style="margin-top: 0;">Enterprise workflows required coordinated browser, API, database, and SOAP validation without duplicating architecture across tools. Each interface has different timing characteristics, data formats, and failure modes — but the test logic and governance model needed to stay consistent across all of them.</p>
+
+    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">My Role</h3>
+    <p class="ownership-statement" style="margin-top: 0;">I designed the framework architecture, cross-interface contracts, dependency model, test-data strategy, and AI-assisted development workflow. Every layer — from interface adapters to the orchestration and validation pipeline — was designed and implemented by me, using Isagawa to govern the build process itself.</p>
+
+    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Solution</h3>
+    <p class="ownership-statement" style="margin-top: 0;">One coherent platform model across four interfaces, each sharing a common architectural contract while adapting to the specific capabilities of its transport layer. The platform is built through Isagawa's governed workflow — each interface slice is decomposed into bounded tasks, built incrementally, and validated against defined gates before merging.</p>
+
+    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Result</h3>
+    <p class="ownership-statement" style="margin-top: 0;">Browser, REST API, and SQL Server interfaces are built and validated end to end under the shared contract; the SOAP interface is the next slice on the same architecture. Isagawa governed the build itself — each interface was decomposed into bounded tasks and passed through independent gate checks before merging.</p>
+
+    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Coverage</h3>
+    <div class="capabilities-grid" style="margin-top: 0.5rem;">
+      <div class="capability-item">
+        <strong>Browser Automation</strong>
+        <span>Complete — Selenium-based interface with page objects, component abstractions, role-scoped workflows, and structural and live end-to-end test suites</span>
+      </div>
+      <div class="capability-item">
+        <strong>REST API</strong>
+        <span>Complete — request/response interface with typed API objects, task workflows, and test suites covering endpoint validation and data consistency</span>
+      </div>
+      <div class="capability-item">
+        <strong>SQL Server</strong>
+        <span>Complete — direct-database interface with data objects, query workflows, role layers, and structural and live end-to-end test suites</span>
+      </div>
+      <div class="capability-item">
+        <strong>SOAP / XML Services</strong>
+        <span>Planned — architecture designed and contracts defined; implementation scheduled as the next platform slice</span>
+      </div>
+    </div>
+
+    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Unified Governance</h3>
+    <p class="ownership-statement" style="margin-top: 0;">All four interfaces share a common architectural contract that enforces consistent layering, naming, and dependency rules. Each interface adapts the contract to its transport while preserving the same structural conventions — a browser page object and a REST API object follow the same compositional pattern. The contract is enforced at build time through Isagawa's gate system, not through manual review alone.</p>
+
+    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Technologies</h3>
+    <div class="badge-row" style="margin-top: 0.5rem;">
+      <span>Python</span>
+      <span>Selenium</span>
+      <span>Playwright</span>
+      <span>pyodbc</span>
+      <span>pymssql</span>
+      <span>FastAPI</span>
+      <span>SQL Server</span>
+      <span>Docker</span>
+      <span>pytest</span>
+      <span>Claude Code</span>
+    </div>
+
+    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Architectural Trade-off</h3>
+    <div class="arch-key-principle" style="font-size: 0.95rem; line-height: 1.7;">
+      <strong style="display: block; margin-bottom: 0.4rem;">Challenge</strong>
+      Keeping asynchronous browser steps and synchronous database assertions from drifting out of sync during a single test run.
+      <strong style="display: block; margin-top: 0.75rem; margin-bottom: 0.4rem;">Decision</strong>
+      State is checkpointed outside the model's context window rather than held in conversation — the model acts as an execution worker, not the source of truth for state. This trades some runtime flexibility for reproducibility across interfaces.
+    </div>
   </section>
 
   <section id="selected-work">
