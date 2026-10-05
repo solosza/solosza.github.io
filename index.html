@@ -1,979 +1,203 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alain Ignacio - Agent Systems Engineer and SDD Framework Builder</title>
-  <meta property="og:title" content="Alain Ignacio - Agent Systems Engineer and SDD Framework Builder">
-  <meta property="og:description" content="Creator of Isagawa, a proprietary agentic spec-driven development environment used to structure, govern, and validate domain-specific software workflows.">
-  <meta property="og:type" content="website">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --accent: #2563eb;
-      --accent-light: #dbeafe;
-      --text: #1a1a2e;
-      --text-secondary: #4a4a6a;
-      --bg: #fafafa;
-      --surface: #ffffff;
-      --border: #e2e2e8;
-      --section-gap: 4rem;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.6;
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0.75rem 0;
-      z-index: 10;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-      justify-content: center;
-    }
-
-    nav a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    nav a:hover { color: var(--accent); }
-
-    section {
-      padding: var(--section-gap) 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    section:last-of-type { border-bottom: none; }
-
-    h1 {
-      font-size: 2.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--text);
-    }
-
-    .hero-role {
-      font-size: 1.1rem;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-
-    .hero-headline {
-      font-size: 1.2rem;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-      font-weight: 600;
-    }
-
-    .hero-subheadline {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-      max-width: 640px;
-    }
-
-    .hero-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-    }
-
-    .hero-links a {
-      display: inline-block;
-      padding: 0.5rem 1.25rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .hero-links a.primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .hero-links a.primary:hover { background: #1d4ed8; }
-
-    .hero-links a.secondary {
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-      background: var(--surface);
-    }
-
-    .hero-links a.secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .hero-ownership {
-      font-size: 1.05rem;
-      color: var(--text);
-      margin-bottom: 1.5rem;
-      max-width: 640px;
-      line-height: 1.7;
-    }
-
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .badge-row span {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      background: var(--accent-light);
-      color: var(--accent);
-      border-radius: 4px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    }
-
-    .hiring-target {
-      margin-top: 1.5rem;
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-    }
-
-    .section-placeholder {
-      color: var(--text-secondary);
-      font-style: italic;
-      padding: 2rem 0;
-    }
-
-    .isagawa-definition {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--text);
-      margin-bottom: 1.75rem;
-      max-width: 720px;
-    }
-
-    .capabilities-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .capability-item {
-      padding: 0.75rem 1rem;
-      border-left: 3px solid var(--accent);
-      background: var(--surface);
-      border-radius: 0 4px 4px 0;
-    }
-
-    .capability-item strong {
-      display: block;
-      font-size: 0.9rem;
-      color: var(--text);
-      margin-bottom: 0.2rem;
-    }
-
-    .capability-item span {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .concept-diagram {
-      margin: 2rem 0;
-      text-align: center;
-      overflow-x: auto;
-    }
-
-    .concept-diagram svg {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .ownership-statement {
-      font-size: 1rem;
-      color: var(--text);
-      margin: 1.75rem 0;
-      max-width: 720px;
-      line-height: 1.7;
-    }
-
-    .dx-teaser {
-      margin-top: 2rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      max-width: 640px;
-    }
-
-    .snippet-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--text-secondary);
-      padding: 0.75rem 1rem 0.5rem;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .dx-teaser pre {
-      margin: 0;
-      padding: 1rem;
-      background: #1e293b;
-      color: #e2e8f0;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      overflow-x: auto;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    }
-
-    .snippet-caption {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      padding: 0.75rem 1rem;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      font-style: italic;
-    }
-
-    .arch-flow-diagram {
-      margin: 2rem 0;
-      text-align: center;
-      overflow-x: auto;
-    }
-
-    .arch-flow-diagram svg {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .principles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-
-    .principle-item {
-      padding: 0.75rem 1rem;
-      border-left: 3px solid #64748b;
-      background: var(--surface);
-      border-radius: 0 4px 4px 0;
-    }
-
-    .principle-item strong {
-      display: block;
-      font-size: 0.9rem;
-      color: var(--text);
-      margin-bottom: 0.2rem;
-    }
-
-    .principle-item span {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .arch-key-principle {
-      font-size: 1.05rem;
-      color: var(--text);
-      font-weight: 500;
-      margin-top: 1.75rem;
-      padding: 1rem 1.25rem;
-      background: var(--accent-light);
-      border-left: 4px solid var(--accent);
-      border-radius: 0 6px 6px 0;
-      max-width: 720px;
-    }
-
-    .evidence-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .evidence-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.25rem 1.5rem;
-    }
-
-    .evidence-card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .evidence-card .mechanism {
-      font-size: 0.9rem;
-      color: var(--text);
-      line-height: 1.65;
-      margin-bottom: 0.75rem;
-    }
-
-    .evidence-card .why-it-matters {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 0.75rem;
-    }
-
-    .pending-metric {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #92400e;
-      background: #fef3c7;
-      padding: 0.2rem 0.6rem;
-      border-radius: 3px;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    }
-
-    .evidence-card.trace-card {
-      grid-column: 1 / -1;
-    }
-
-    .cli-trace {
-      margin-top: 1rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .cli-trace-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--text-secondary);
-      padding: 0.6rem 1rem;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .cli-trace pre {
-      margin: 0;
-      padding: 1rem;
-      background: #1e293b;
-      color: #e2e8f0;
-      font-size: 0.8rem;
-      line-height: 1.55;
-      overflow-x: auto;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-      max-height: 360px;
-      overflow-y: auto;
-    }
-
-    .cli-trace pre .trace-header { color: #93c5fd; font-weight: 600; }
-    .cli-trace pre .trace-state { color: #94a3b8; }
-    .cli-trace pre .trace-task { color: #fbbf24; }
-    .cli-trace pre .trace-model { color: #a78bfa; }
-    .cli-trace pre .trace-done { color: #86efac; }
-    .cli-trace pre .trace-banner { color: #34d399; font-weight: 600; }
-
-    .cli-trace-caption {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      padding: 0.6rem 1rem;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      font-style: italic;
-    }
-
-    .decisions-table-wrap {
-      overflow-x: auto;
-      margin: 2rem 0;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-    }
-
-    .decisions-table {
-      width: 100%;
-      min-width: 640px;
-      border-collapse: collapse;
-    }
-
-    .decisions-table th,
-    .decisions-table td {
-      padding: 0.75rem 1rem;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      vertical-align: top;
-    }
-
-    .decisions-table th {
-      background: var(--surface);
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .decisions-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    .decisions-table td:first-child {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .decisions-table td:not(:first-child) {
-      color: var(--text-secondary);
-    }
-
-    footer {
-      padding: 2rem 0;
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.75rem; }
-      nav ul { gap: 0.75rem; }
-      nav a { font-size: 0.8rem; }
-      section { padding: 2.5rem 0; }
-    }
-
-    @media print {
-      nav { position: static; }
-      .badge-row span { background: #fff; color: #000; border: 1px solid #999; }
-      .dx-teaser pre, .cli-trace pre { background: #fff; color: #000; border: 1px solid #999; }
-      .cli-trace pre .trace-header, .cli-trace pre .trace-state, .cli-trace pre .trace-task,
-      .cli-trace pre .trace-model, .cli-trace pre .trace-done, .cli-trace pre .trace-banner { color: #000; }
-      .arch-key-principle, .pending-metric { background: #fff; border: 1px solid #999; }
-      section { border-bottom: 1px solid #ccc; page-break-inside: avoid; }
-      a { color: #000; text-decoration: underline; }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alain Ignacio | Quality engineering for software and AI agents</title>
+  <meta name="description" content="Alain Ignacio builds test automation for software and the evals, guardrails, and verification that keep AI agents honest. Las Vegas, NV.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f9d55'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#isagawa">Isagawa</a></li>
-      <li><a href="#thesis">Thesis</a></li>
-      <li><a href="#architecture">Architecture</a></li>
-      <li><a href="#evidence">Evidence</a></li>
-      <li><a href="#case-study">Case Study</a></li>
-      <li><a href="#selected-work">Selected Work</a></li>
-      <li><a href="#decisions">Decisions</a></li>
-      <li><a href="#resume">Resume</a></li>
-      <li><a href="#contact">Contact</a></li>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1 class="name">Alain Ignacio</h1>
+    <p class="tagline">Quality engineering for software and AI agents.</p>
+    <p class="sub">I build test automation frameworks, and the evals, guardrails, and verification that keep AI agents honest. Las Vegas, NV.</p>
+    <ul class="links">
+      <li><a href="mailto:solosza@yahoo.com">solosza@yahoo.com</a></li>
+      <li><a href="https://www.linkedin.com/in/alain-ignacio" target="_blank" rel="noopener">LinkedIn</a></li>
     </ul>
-  </nav>
+  </div>
+</header>
 
-  <section id="about">
-    <h1>Alain Ignacio</h1>
-    <p class="hero-role">Agent Systems Engineer | AI Developer Tooling | Spec-Driven Development</p>
-    <p class="hero-headline">I build governed infrastructure for AI-assisted software development.</p>
-    <p class="hero-ownership">I built Isagawa, a proprietary agentic SDD environment used to structure, govern, and validate AI-assisted software workflows across multiple domains.</p>
-    <div class="badge-row">
-      <span>Python</span>
-      <span>Selenium</span>
-      <span>Playwright</span>
-      <span>pyodbc</span>
-      <span>pymssql</span>
-      <span>Claude Code</span>
-      <span>Docker</span>
-    </div>
-    <div class="hero-links">
-      <a href="assets/resume.pdf" class="primary">Resume</a>
-      <a href="https://github.com/solosza" class="secondary">GitHub</a>
-      <a href="https://linkedin.com/in/alain-ignacio" class="secondary">LinkedIn</a>
-      <a href="mailto:alain@isagawa.co" class="secondary">Email</a>
-    </div>
-    <p class="hero-ownership">I am a systems-oriented builder focused on agent infrastructure, AI developer tooling, spec-driven development, evaluation, and quality platforms. I built Isagawa and its applied systems end to end — from the enforcement runtime to the QA platforms it governs. My core strengths are mechanical enforcement design (building systems that make failure impossible rather than unlikely), hook-based governance at the tool-call boundary, and autonomous, self-improving agent workflows that compound knowledge across sessions.</p>
-    <p class="hiring-target">Seeking roles in agent runtimes, AI infrastructure, developer tooling, evaluation systems, and applied AI architecture. Based in Las Vegas, NV — U.S. Citizen, no sponsorship required.</p>
-  </section>
+<nav class="pipeline" aria-label="Sections">
+  <div class="wrap">
+    <ol>
+      <li><a href="#run"><span class="dot"></span>Run</a></li>
+      <li><a href="#work"><span class="dot"></span>Work</a></li>
+      <li><a href="#proof"><span class="dot"></span>Proof</a></li>
+      <li><a href="#contact"><span class="dot"></span>Contact</a></li>
+    </ol>
+  </div>
+</nav>
 
-  <section id="isagawa">
-    <h2>What I Built: Isagawa</h2>
+<main>
 
-    <p class="isagawa-definition">Isagawa is an agentic spec-driven development environment. It turns high-level intent into structured development workflows, applies domain-aware controls during execution, and produces reviewable software artifacts with explicit validation evidence.</p>
+  <section id="run" class="wrap section">
+    <h2 class="label">Run</h2>
+    <div class="terminal" role="img" aria-label="Test run: 7 passed, 0 failed">
+      <div class="term-bar"><span></span><span></span><span></span><em>alain.ignacio</em></div>
+      <pre class="term-body"><code><span class="prompt">$</span> run alain.ignacio
 
-    <div class="capabilities-grid">
-      <div class="capability-item">
-        <strong>Specification</strong>
-        <span>Externalize intent into structured, declarative formats before execution begins</span>
-      </div>
-      <div class="capability-item">
-        <strong>Domain Adaptation</strong>
-        <span>Configure execution for different verticals without rewriting the runtime</span>
-      </div>
-      <div class="capability-item">
-        <strong>Governed Execution</strong>
-        <span>Enforce bounded work units with explicit gates throughout the workflow</span>
-      </div>
-      <div class="capability-item">
-        <strong>Validation</strong>
-        <span>Independent verification of outputs against declared invariants</span>
-      </div>
-      <div class="capability-item">
-        <strong>Review</strong>
-        <span>Structured review workflows for generated artifacts before delivery</span>
-      </div>
-      <div class="capability-item">
-        <strong>Workflow Tracking</strong>
-        <span>Persistent state and progress tracking across sessions</span>
-      </div>
-    </div>
+<span class="suite">QA suite</span>
+  <span class="ok">✓</span> builds QA functions from zero              <span class="meta">Nakupuna, Helios</span>
+  <span class="ok">✓</span> test automation frameworks                 <span class="meta">Selenium, Playwright, API, DB</span>
+  <span class="ok">✓</span> regulated domains                          <span class="meta">healthcare, federal, telecom</span>
 
-    <div class="concept-diagram">
-      <svg viewBox="0 0 680 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conceptual flow: Developer Intent to Governed Workflow to Validated Output">
-        <defs>
-          <marker id="flow-arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,3 L0,6" fill="#94a3b8"/>
-          </marker>
-        </defs>
-        <rect x="0" y="15" width="170" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="85" y="40" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Developer Intent</text>
-        <line x1="175" y1="35" x2="245" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#flow-arrow)"/>
-        <rect x="250" y="15" width="190" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="345" y="40" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Governed Workflow</text>
-        <line x1="445" y1="35" x2="495" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#flow-arrow)"/>
-        <rect x="500" y="15" width="175" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="587" y="40" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Validated Output</text>
-      </svg>
-    </div>
+<span class="suite">AI agent suite</span>
+  <span class="ok">✓</span> agents that write and run tests            <span class="meta">Selenium + Playwright harnesses</span>
+  <span class="ok">✓</span> guardrails enforced by hooks, not prompts  <span class="meta">Isagawa Kernel, open source</span>
+  <span class="ok">✓</span> LLM and agent evaluation                   <span class="meta">DeepEval suites</span>
+  <span class="ok">✓</span> verifiable agent runs                      <span class="meta">Sigstore / Rekor attestation</span>
 
-    <p class="ownership-statement">I designed and implemented the system architecture, workflow runtime, evaluation mechanisms, and applied platforms.</p>
-
-    <div class="dx-teaser">
-      <p class="snippet-label">Representative example, not an internal file</p>
-      <pre><code># representative-workflow.sdd.yaml
-domain: qa-automation
-spec:
-  goal: "Validate REST and database state consistency across a checkout flow"
-  governance:
-    require_verification_gate: true
-  invariants:
-    - check: "order_status matches api_response_status"
-      type: deterministic</code></pre>
-      <p class="snippet-caption">Shows how developer intent is externalized into a declarative spec before entering the governed execution runtime.</p>
+<span class="pass">7 passed</span> · 0 failed</code></pre>
     </div>
   </section>
 
-  <section id="thesis">
-    <h2>The Problem and Design Thesis</h2>
+  <section id="work" class="wrap section">
+    <h2 class="label">Work</h2>
+    <p class="lede">Each project written the way a test case is: the setup, the action, and the expected result.</p>
 
-    <p class="isagawa-definition">Coding agents can lose procedural context mid-task, reinterpret instructions as conversation history grows, and report completion without independent evidence that the work is correct.</p>
+    <div class="cards">
 
-    <div class="capabilities-grid">
-      <div class="capability-item">
-        <strong>Advisory prompts</strong>
-        <span>Instructions provided as context, not as enforceable constraints — the model can drift from them without any mechanism noticing</span>
-      </div>
-      <div class="capability-item">
-        <strong>Fragile conversational state</strong>
-        <span>Prior decisions, corrections, and constraints fade as context windows compress or conversations restart</span>
-      </div>
-      <div class="capability-item">
-        <strong>Self-reported completion</strong>
-        <span>The same model that performed the work is the only judge of whether it succeeded — no independent verification layer</span>
-      </div>
-    </div>
+      <article class="card">
+        <header>
+          <span class="tag tag-ai">AI agent</span>
+          <h3>AI test harness</h3>
+        </header>
+        <dl class="gwt">
+          <dt>Given</dt><dd>a web app and a test described in plain English</dd>
+          <dt>When</dt><dd>the agent takes the request</dd>
+          <dt>Then</dt><dd>it explores the app in a live browser, writes the test into a consistent framework, runs it, and tells an app defect apart from a test problem</dd>
+        </dl>
+        <p class="result">Shipped as a client delivery. Outside developers fork it and use it daily on their own apps.</p>
+        <ul class="repos">
+          <li><a href="https://github.com/isagawa-qa/platform-selenium" target="_blank" rel="noopener" data-repo="isagawa-qa/platform-selenium">platform-selenium</a> <span class="stats" data-for="isagawa-qa/platform-selenium"></span></li>
+          <li><a href="https://github.com/isagawa-qa/platform-playwright" target="_blank" rel="noopener" data-repo="isagawa-qa/platform-playwright">platform-playwright</a> <span class="stats" data-for="isagawa-qa/platform-playwright"></span></li>
+        </ul>
+      </article>
 
-    <p class="ownership-statement">Specifications alone are not enough. A spec can declare what should happen, but without a runtime that enforces bounded execution, tracks state outside the model's context, and validates outputs independently, the gap between intent and result remains open.</p>
+      <article class="card">
+        <header>
+          <span class="tag tag-ai">AI agent</span>
+          <h3>Isagawa Kernel</h3>
+        </header>
+        <dl class="gwt">
+          <dt>Given</dt><dd>an AI coding agent working for hours, across restarts</dd>
+          <dt>When</dt><dd>it tries to skip a step or repeat a past mistake</dd>
+          <dt>Then</dt><dd>hooks block the action, every failure becomes a permanent rule, and the agent never grades its own work</dd>
+        </dl>
+        <p class="result">Open source under MIT. Runs my own agent workflows every day.</p>
+        <ul class="repos">
+          <li><a href="https://github.com/isagawa-co/isagawa-kernel" target="_blank" rel="noopener">isagawa-kernel</a> <span class="stats" data-for="isagawa-co/isagawa-kernel"></span></li>
+        </ul>
+      </article>
 
-    <p class="ownership-statement">My approach: treat agent reliability as a software runtime and verification problem — not only a prompting problem.</p>
-  </section>
+      <article class="card">
+        <header>
+          <span class="tag tag-ai">AI eval</span>
+          <h3>LLM and agent evaluation</h3>
+        </header>
+        <dl class="gwt">
+          <dt>Given</dt><dd>a RAG, chat, or agent pipeline</dd>
+          <dt>When</dt><dd>a prompt, model, or tool changes</dd>
+          <dt>Then</dt><dd>golden-dataset eval suites catch regressions before release, run like any other test suite</dd>
+        </dl>
+        <p class="result">DeepEval suites covering RAG, chat, and agent pipelines, including agents I build, tested for rule-following, prompt injection, and data leakage.</p>
+      </article>
 
-  <section id="architecture">
-    <h2>High-Level Architecture</h2>
+      <article class="card">
+        <header>
+          <span class="tag tag-ai">AI verification</span>
+          <h3>Agent run attestation</h3>
+        </header>
+        <dl class="gwt">
+          <dt>Given</dt><dd>an agent pipeline run</dd>
+          <dt>When</dt><dd>it finishes</dd>
+          <dt>Then</dt><dd>what it was asked, what it did, and what it produced are signed with Sigstore and recorded in the public Rekor transparency log</dd>
+        </dl>
+        <p class="result">Agent runs are signed and recorded on a public log. Anyone can verify them without trusting the agent or me.</p>
+        <ul class="repos">
+          <li><a href="https://search.sigstore.dev/?logIndex=2032476331" target="_blank" rel="noopener">example run on the public Rekor log</a></li>
+          <li><a href="https://github.com/isagawa-co/agent-attestation-harness" target="_blank" rel="noopener">agent-attestation-harness</a> <span class="stats" data-for="isagawa-co/agent-attestation-harness"></span></li>
+        </ul>
+      </article>
 
-    <p class="isagawa-definition">Isagawa organizes AI-assisted development around four concepts that separate intent from execution and require independent evidence before work is considered complete.</p>
-
-    <div class="capabilities-grid">
-      <div class="capability-item">
-        <strong>Structured Intent</strong>
-        <span>Developer goals are captured in declarative specifications before any execution begins — the model works from an externalized plan, not improvised conversation</span>
-      </div>
-      <div class="capability-item">
-        <strong>Domain-Aware Workflow</strong>
-        <span>Execution adapts to the target domain's conventions, interfaces, and constraints without rewriting the underlying runtime</span>
-      </div>
-      <div class="capability-item">
-        <strong>Governed Execution</strong>
-        <span>Work proceeds in bounded units with explicit gates — progress is checkpointed outside the model's context so it survives session boundaries</span>
-      </div>
-      <div class="capability-item">
-        <strong>Independent Validation and Review</strong>
-        <span>Outputs are verified against declared invariants by mechanisms separate from the model that produced them — completion requires evidence, not self-report</span>
-      </div>
-    </div>
-
-    <div class="arch-flow-diagram">
-      <svg viewBox="0 0 820 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conceptual flow: Intent to Structured Specification to Domain-Aware Execution to Validation Evidence to Reviewable Artifact">
-        <defs>
-          <marker id="arch-arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,3 L0,6" fill="#94a3b8"/>
-          </marker>
-        </defs>
-        <rect x="0" y="15" width="100" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="50" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Intent</text>
-        <line x1="105" y1="35" x2="145" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
-        <rect x="150" y="15" width="140" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="220" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Structured Spec</text>
-        <line x1="295" y1="35" x2="335" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
-        <rect x="340" y="15" width="145" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="412" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Domain Execution</text>
-        <line x1="490" y1="35" x2="530" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
-        <rect x="535" y="15" width="130" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="600" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Validation</text>
-        <line x1="670" y1="35" x2="710" y2="35" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arch-arrow)"/>
-        <rect x="715" y="15" width="100" height="40" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-        <text x="765" y="40" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="500" font-family="-apple-system, BlinkMacSystemFont, sans-serif">Artifact</text>
-      </svg>
-    </div>
-
-    <div class="principles-grid">
-      <div class="principle-item">
-        <strong>Externalized State</strong>
-        <span>Workflow state is persisted outside the model's context window, supporting inspection, recovery, and continuity across sessions</span>
-      </div>
-      <div class="principle-item">
-        <strong>Bounded Work</strong>
-        <span>Execution is divided into explicit units with defined entry and exit criteria, reducing ambiguity and enabling incremental validation</span>
-      </div>
-      <div class="principle-item">
-        <strong>Tool-Aware Controls</strong>
-        <span>The runtime uses tool-level instrumentation to enforce workflow rules — controls operate alongside the model, not as advisory context within it</span>
-      </div>
-      <div class="principle-item">
-        <strong>Explicit Gates</strong>
-        <span>Progression between workflow stages requires passing defined checks — the system does not advance on self-reported completion alone</span>
-      </div>
-    </div>
-
-    <p class="arch-key-principle">Key principle: the model does not serve as the only source of state or the only judge of completion.</p>
-  </section>
-
-  <section id="evidence">
-    <h2>Evidence</h2>
-
-    <p class="isagawa-definition">The system runs and produces inspectable outcomes. Each card describes a mechanism, what it does, and why it matters.</p>
-
-    <div class="evidence-grid">
-      <div class="evidence-card trace-card">
-        <h3>Governed Workflow</h3>
-        <p class="mechanism">Execution proceeds in bounded work units. Each unit has an explicit entry condition, a defined action, and a completion gate. Progress is checkpointed outside the model's context window so it persists across session boundaries. A task runner iterates through the unit queue, selecting an appropriate model per task and advancing only when the gate passes.</p>
-        <p class="why-it-matters">Why it matters: bounded units prevent open-ended drift. If the model loses context or restarts, the workflow resumes from the last checkpoint — not from scratch.</p>
-        <p><span class="pending-metric">Pending verified figure: bounded units per run</span></p>
-
-        <div class="cli-trace">
-          <p class="cli-trace-label">Sanitized CLI trace from a real task runner execution</p>
-          <pre><code><span class="trace-header">============================================
-  Isagawa Kernel - One-Shot Task Runner
-  (with session resume)
-============================================</span>
-<span class="trace-state">Repo: &lt;repo&gt;
-Task folder: &lt;repo&gt;/tasks/qa-platform/
-Max iterations: 8</span>
-
-<span class="trace-header">=== Iteration 1/8 ===</span>
-<span class="trace-state">[STATE before]
-  completed: 0/6  |  anchored: true</span>
-<span class="trace-task">[TASK] Attempting: 001-build-page-object</span>
-<span class="trace-model">[MODEL] Selected: claude-sonnet-4-20250514 (task: 001-build-page-object)</span>
-<span class="trace-done">-> Task done. (1 completed this run)</span>
-
-<span class="trace-header">=== Iteration 2/8 ===</span>
-<span class="trace-state">[STATE before]
-  completed: 1/6  |  anchored: true</span>
-<span class="trace-task">[TASK] Attempting: 002-build-role-layer</span>
-<span class="trace-model">[MODEL] Selected: claude-sonnet-4-20250514 (task: 002-build-role-layer)</span>
-<span class="trace-done">-> Task done. (2 completed this run)</span>
-
-<span class="trace-header">=== Iteration 3/8 ===</span>
-<span class="trace-state">[STATE before]
-  completed: 2/6  |  anchored: true</span>
-<span class="trace-task">[TASK] Attempting: 003-build-task-layer</span>
-<span class="trace-model">[MODEL] Selected: claude-opus-4-20250515 (task: 003-build-task-layer)</span>
-<span class="trace-done">-> Task done. (3 completed this run)</span>
-
-<span class="trace-header">=== Iteration 4/8 ===</span>
-<span class="trace-state">[STATE before]
-  completed: 3/6  |  anchored: true</span>
-<span class="trace-task">[TASK] Attempting: 004-build-interface</span>
-<span class="trace-model">[MODEL] Selected: claude-opus-4-20250515 (task: 004-build-interface)</span>
-<span class="trace-done">-> Task done. (4 completed this run)</span>
-
-<span class="trace-header">=== Iteration 5/8 ===</span>
-<span class="trace-state">[STATE before]
-  completed: 4/6  |  anchored: true</span>
-<span class="trace-task">[TASK] Attempting: 005-test-structural</span>
-<span class="trace-model">[MODEL] Selected: claude-sonnet-4-20250514 (task: 005-test-structural)</span>
-<span class="trace-done">-> Task done. (5 completed this run)</span>
-
-<span class="trace-header">=== Iteration 6/8 ===</span>
-<span class="trace-state">[STATE before]
-  completed: 5/6  |  anchored: true</span>
-<span class="trace-task">[TASK] Attempting: 006-test-live-e2e</span>
-<span class="trace-model">[MODEL] Selected: claude-opus-4-20250515 (task: 006-test-live-e2e)</span>
-<span class="trace-done">-> Task done. (6 completed this run)</span>
-
-<span class="trace-banner">============================================
-  ALL TASKS COMPLETE
-  Tasks completed this run: 6
-  Total iterations: 6
-============================================</span></code></pre>
-          <p class="cli-trace-caption">Sanitized output from the task runner completing a QA platform build — paths and identifiers removed, execution structure preserved.</p>
-        </div>
-      </div>
-
-      <div class="evidence-card">
-        <h3>Independent Validation</h3>
-        <p class="mechanism">Each deliverable passes through gate checks defined separately from the code that produced it. Gates range from structural checks (does the file exist, does it parse, do imports resolve) to live behavioral tests (does the workflow run against a real application and produce the expected outcome). A failing gate blocks progression — the system does not advance on the model's self-report.</p>
-        <p class="why-it-matters">Why it matters: the model that wrote the code is not the sole judge of whether it works. Verification is independent of generation.</p>
-        <p><span class="pending-metric">Pending verified figure: gate pass/fail rate</span></p>
-      </div>
-
-      <div class="evidence-card">
-        <h3>Controlled Delivery</h3>
-        <p class="mechanism">Generated changes are isolated to feature branches. Each batch of work produces a reviewable diff before merging. Commit history tracks what was built, what was tested, and what was validated — the full chain from intent to artifact is inspectable after the fact.</p>
-        <p class="why-it-matters">Why it matters: AI-generated code enters the codebase through the same review pathway as human-written code. Nothing merges unexamined.</p>
-        <p><span class="pending-metric">Pending verified figure: branches and review cycles</span></p>
-      </div>
-
-      <div class="evidence-card">
-        <h3>Evaluation Routing</h3>
-        <p class="mechanism">The system selects model and verification strategy based on workload type. Build tasks that require architectural reasoning route to higher-capability models; structural tests route to faster, cheaper models. Invalid or malformed inputs are rejected before execution begins rather than failing mid-workflow.</p>
-        <p class="why-it-matters">Why it matters: not every task needs the same model or the same depth of verification. Routing reduces cost and latency without sacrificing quality where it matters most.</p>
-        <p><span class="pending-metric">Pending verified figure: routing distribution</span></p>
-      </div>
     </div>
   </section>
 
-  <section id="case-study">
-    <h2>Case Study: Multi-Interface QA Platform</h2>
-
-    <p class="isagawa-definition">A cross-interface QA automation platform built and validated through Isagawa, covering browser, REST API, database, and SOAP service testing under a unified architectural model.</p>
-
-    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Problem</h3>
-    <p class="ownership-statement" style="margin-top: 0;">Enterprise workflows required coordinated browser, API, database, and SOAP validation without duplicating architecture across tools. Each interface has different timing characteristics, data formats, and failure modes — but the test logic and governance model needed to stay consistent across all of them.</p>
-
-    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">My Role</h3>
-    <p class="ownership-statement" style="margin-top: 0;">I designed the framework architecture, cross-interface contracts, dependency model, test-data strategy, and AI-assisted development workflow. Every layer — from interface adapters to the orchestration and validation pipeline — was designed and implemented by me, using Isagawa to govern the build process itself.</p>
-
-    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Solution</h3>
-    <p class="ownership-statement" style="margin-top: 0;">One coherent platform model across four interfaces, each sharing a common architectural contract while adapting to the specific capabilities of its transport layer. The platform is built through Isagawa's governed workflow — each interface slice is decomposed into bounded tasks, built incrementally, and validated against defined gates before merging.</p>
-
-    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Result</h3>
-    <p class="ownership-statement" style="margin-top: 0;">Browser, REST API, and SQL Server interfaces are built and validated end to end under the shared contract; the SOAP interface is the next slice on the same architecture. Isagawa governed the build itself — each interface was decomposed into bounded tasks and passed through independent gate checks before merging.</p>
-
-    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Coverage</h3>
-    <div class="capabilities-grid" style="margin-top: 0.5rem;">
-      <div class="capability-item">
-        <strong>Browser Automation</strong>
-        <span>Complete — Selenium-based interface with page objects, component abstractions, role-scoped workflows, and structural and live end-to-end test suites</span>
-      </div>
-      <div class="capability-item">
-        <strong>REST API</strong>
-        <span>Complete — request/response interface with typed API objects, task workflows, and test suites covering endpoint validation and data consistency</span>
-      </div>
-      <div class="capability-item">
-        <strong>SQL Server</strong>
-        <span>Complete — direct-database interface with data objects, query workflows, role layers, and structural and live end-to-end test suites</span>
-      </div>
-      <div class="capability-item">
-        <strong>SOAP / XML Services</strong>
-        <span>Planned — architecture designed and contracts defined; implementation scheduled as the next platform slice</span>
-      </div>
-    </div>
-
-    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Unified Governance</h3>
-    <p class="ownership-statement" style="margin-top: 0;">All four interfaces share a common architectural contract that enforces consistent layering, naming, and dependency rules. Each interface adapts the contract to its transport while preserving the same structural conventions — a browser page object and a REST API object follow the same compositional pattern. The contract is enforced at build time through Isagawa's gate system, not through manual review alone.</p>
-
-    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Technologies</h3>
-    <div class="badge-row" style="margin-top: 0.5rem;">
-      <span>Python</span>
-      <span>Selenium</span>
-      <span>Playwright</span>
-      <span>pyodbc</span>
-      <span>pymssql</span>
-      <span>FastAPI</span>
-      <span>SQL Server</span>
-      <span>Docker</span>
-      <span>pytest</span>
-      <span>Claude Code</span>
-    </div>
-
-    <h3 style="font-size: 1.1rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem;">Architectural Trade-off</h3>
-    <div class="arch-key-principle" style="font-size: 0.95rem; line-height: 1.7;">
-      <strong style="display: block; margin-bottom: 0.4rem;">Challenge</strong>
-      Keeping asynchronous browser steps and synchronous database assertions from drifting out of sync during a single test run.
-      <strong style="display: block; margin-top: 0.75rem; margin-bottom: 0.4rem;">Decision</strong>
-      State is checkpointed outside the model's context window rather than held in conversation — the model acts as an execution worker, not the source of truth for state. This trades some runtime flexibility for reproducibility across interfaces.
-    </div>
-  </section>
-
-  <section id="selected-work">
-    <h2>Selected Work</h2>
-
-    <p class="isagawa-definition">Real applications built across agent infrastructure, evaluation systems, and compliance automation.</p>
-
-    <div class="evidence-grid">
-      <div class="evidence-card">
-        <h3>AI Evaluation Platform</h3>
-        <p class="mechanism">Built an evaluation framework that separates the model doing the work from the verifier evaluating it. Evaluation proceeds through layers: structural validation (does the output parse, imports resolve), behavioral tests against mocked targets, then live tests against real applications. Each layer enforces independent verification before progression.</p>
-        <p class="why-it-matters">Why it matters: AI-generated code needs evaluation outside the model's own reasoning. Independent verification catches gaps that self-assessment misses and provides defensible evidence of quality before merging.</p>
-        <div class="badge-row" style="margin-top: 0.75rem;">
-          <span>Python</span>
-          <span>Claude</span>
-          <span>pytest</span>
-          <span>deepeval</span>
-        </div>
-      </div>
-
-      <div class="evidence-card">
-        <h3>Compliance and Attestation Pipeline</h3>
-        <p class="mechanism">Designed and implemented a verifiable artifact attestation system using Sigstore and Rekor, enabling tamper-proof provenance tracking for software deliverables. The pipeline captures build context, attestations, and verification evidence as immutable, publicly auditable records in the transparency log.</p>
-        <p class="why-it-matters">Why it matters: compliance workflows require evidence trails that survive audits and legal review. Artifact provenance through Sigstore creates cryptographic proof of what was built, by whom, and when — without relying on a single authority.</p>
-        <div class="badge-row" style="margin-top: 0.75rem;">
-          <span>Python</span>
-          <span>Sigstore</span>
-          <span>Rekor</span>
-          <span>OpenSSL</span>
-        </div>
-      </div>
-
-      <div class="evidence-card">
-        <h3>Isagawa Kernel — Domain-Driven Agent Runtime</h3>
-        <p class="mechanism">Designed and built the core runtime that bounds agent work into explicit units, persists state outside the model's context, enforces validation gates between stages, and applies domain-specific rules through pluggable enforcement hooks. The kernel separates intent (structured specifications) from execution (domain-aware workflows) and validates outputs independently before marking tasks complete.</p>
-        <p class="why-it-matters">Why it matters: agent workflows drift without externalized state and independent verification. The kernel treats agent reliability as a runtime and verification problem — not just a prompting one. It enables reproducible, governed workflows that survive context boundaries and session restarts.</p>
-        <div class="badge-row" style="margin-top: 0.75rem;">
-          <span>Python</span>
-          <span>State Management</span>
-          <span>Hook Enforcement</span>
-          <span>Claude Code</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="decisions">
-    <h2>Engineering Decisions and Trade-offs</h2>
-
-    <p class="isagawa-definition">Each of these decisions trades a benefit for a concrete operational cost. None is claimed to be universally optimal — each is a fit for the problem the runtime is solving.</p>
-
-    <div class="decisions-table-wrap">
-      <table class="decisions-table">
+  <section id="proof" class="wrap section">
+    <h2 class="label">Proof</h2>
+    <p class="lede">A traceability matrix: what teams hire for, mapped to evidence you can check.</p>
+    <div class="matrix-scroll">
+      <table class="matrix">
         <thead>
-          <tr>
-            <th>Decision</th>
-            <th>Reason</th>
-            <th>Operational Trade-off / Invariant</th>
-          </tr>
+          <tr><th scope="col">Requirement</th><th scope="col">Status</th><th scope="col">Evidence</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Persist workflow state outside chat</td>
-            <td>Supports inspection, recovery, continuity</td>
-            <td>Adds a persistence layer to maintain; state must survive session boundaries</td>
-          </tr>
-          <tr>
-            <td>Bound work into explicit units</td>
-            <td>Reduces ambiguity, improves validation</td>
-            <td>Requires upfront task decomposition before execution</td>
-          </tr>
-          <tr>
-            <td>Separate mechanical and semantic checks</td>
-            <td>Different invariants need different verification methods</td>
-            <td>Semantic checks remain model-assisted and probabilistic; mechanical checks are deterministic</td>
-          </tr>
-          <tr>
-            <td>Use controlled integration</td>
-            <td>Keeps generated changes reviewable before merge</td>
-            <td>Adds a review step; trades some autonomy for auditability</td>
-          </tr>
-          <tr>
-            <td>Adapt by domain</td>
-            <td>Reusable runtime without hardcoding one vertical</td>
-            <td>Domain specs must be authored per vertical; runtime stays constant</td>
-          </tr>
+          <tr><td>Test automation framework design</td><td class="st">✓</td><td><a href="https://github.com/isagawa-qa/platform-selenium" target="_blank" rel="noopener">platform-selenium</a>, <a href="https://github.com/isagawa-qa/platform-playwright" target="_blank" rel="noopener">platform-playwright</a></td></tr>
+          <tr><td>Building QA from zero</td><td class="st">✓</td><td>Navy ERP automation team grown from zero to four engineers; founding QA hire at a seed-stage startup</td></tr>
+          <tr><td>Regulated environments</td><td class="st">✓</td><td>Health insurance claims (HIPAA), federal Navy ERP, telecom billing</td></tr>
+          <tr><td>Agents that do real work</td><td class="st">✓</td><td>Client delivery; outside developers using the harness daily on their own apps</td></tr>
+          <tr><td>Agent guardrails and reliability</td><td class="st">✓</td><td><a href="https://github.com/isagawa-co/isagawa-kernel" target="_blank" rel="noopener">isagawa-kernel</a> (MIT)</td></tr>
+          <tr><td>LLM and agent evals</td><td class="st">✓</td><td>DeepEval suites for RAG, chat, and agent pipelines</td></tr>
+          <tr><td>Provenance and auditability</td><td class="st">✓</td><td>Signed agent runs; <a href="https://search.sigstore.dev/?logIndex=2032476331" target="_blank" rel="noopener">example on the public Rekor log</a></td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section id="limitations">
-    <h2>Current Limitations</h2>
-
-    <p class="isagawa-definition">Isagawa is an early-stage proprietary implementation exercised extensively by its builder across multiple domains. The following categories represent active engineering areas and scope boundaries:</p>
-
-    <div class="capabilities-grid">
-      <div class="capability-item">
-        <strong>Executor Dependence</strong>
-        <span>Runtime requires Claude Code or compatible terminal session; no standalone server deployment yet.</span>
-      </div>
-      <div class="capability-item">
-        <strong>Incomplete External Benchmarking</strong>
-        <span>Evidence base is internal to the builder's workflow. External reproduction, third-party validation, and comparative benchmarking across agent frameworks are active areas.</span>
-      </div>
-      <div class="capability-item">
-        <strong>Model-Assisted Semantic Review</strong>
-        <span>Semantic gates use LLM-as-judge and probabilistic pattern matching. Mechanical validation is deterministic; semantic correctness remains model-assisted.</span>
-      </div>
-      <div class="capability-item">
-        <strong>Concurrency Hardening</strong>
-        <span>Multi-agent parallel execution and state isolation are under active development. Serial and single-threaded workflows are well-validated; concurrent patterns are production-ready but continue to be hardened under load.</span>
-      </div>
-    </div>
-
-    <p class="isagawa-definition"><strong>Current work:</strong> Broader executor support, distributed state isolation for multi-agent swarms, external validation frameworks, and production deployment patterns.</p>
+  <section id="contact" class="wrap section">
+    <h2 class="label">Contact</h2>
+    <p class="contact-line">Open to QA leadership, test automation architecture, and AI agent quality roles. Remote, U.S.</p>
+    <ul class="links big">
+      <li><a href="mailto:solosza@yahoo.com">solosza@yahoo.com</a></li>
+      <li><a href="https://www.linkedin.com/in/alain-ignacio" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
   </section>
 
-  <section id="resume">
-    <h2>Resume</h2>
-    <p class="section-placeholder">Content for this section will be added in a future update.</p>
-  </section>
+</main>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p class="isagawa-definition">I'm looking for roles in agent runtimes, AI infrastructure, developer tooling, evaluation systems, and applied AI architecture. Based in Las Vegas, NV — U.S. Citizen, no sponsorship required.</p>
-    <div class="hero-links">
-      <a href="assets/resume.pdf" class="primary">Resume</a>
-      <a href="https://github.com/solosza" class="secondary">GitHub</a>
-      <a href="https://linkedin.com/in/alain-ignacio" class="secondary">LinkedIn</a>
-      <a href="mailto:alain@isagawa.co" class="secondary">Email</a>
-    </div>
-  </section>
+<footer class="wrap foot">
+  <p>Built and tested by Alain Ignacio.</p>
+</footer>
 
-  <footer>
-    <p>&copy; 2026 Alain Ignacio</p>
-  </footer>
+<script>
+(function () {
+  var nodes = document.querySelectorAll('.stats[data-for]');
+  nodes.forEach(function (el) {
+    var repo = el.getAttribute('data-for');
+    fetch('https://api.github.com/repos/' + repo)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (!j) return;
+        var parts = [];
+        if (j.stargazers_count) parts.push('★ ' + j.stargazers_count);
+        if (j.forks_count) parts.push(j.forks_count + (j.forks_count === 1 ? ' fork' : ' forks'));
+        if (j.pushed_at) parts.push('updated ' + new Date(j.pushed_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }));
+        el.textContent = parts.join(' · ');
+      })
+      .catch(function () {});
+  });
+
+  var links = document.querySelectorAll('.pipeline a');
+  var sections = Array.prototype.map.call(links, function (a) { return document.querySelector(a.getAttribute('href')); });
+  function mark() {
+    var y = window.scrollY + 140, idx = 0;
+    sections.forEach(function (s, i) { if (s && s.offsetTop <= y) idx = i; });
+    links.forEach(function (a, i) {
+      a.classList.toggle('done', i < idx);
+      a.classList.toggle('active', i === idx);
+    });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+})();
+</script>
 </body>
 </html>
